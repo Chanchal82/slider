@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            height: 100vh;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgb(226,230,225);
+            background: linear-gradient(90deg, rgba(226,230,225,1) 0%, rgba(180,184,190,0.7587827367275035) 100%);
+        }
+        .slideshow-container {
+            width: 30%;
+            height: 50%;
+            position: relative;
+            /* overflow: hidden; */
+            border-radius: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 8px rgba(2, 1, 1, 0.5);
+        }
+        .slideshow-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+            
+        }
+        .slideshow-container img.shown{
+            display: block;
+        }
+        .btns{
+            width: 30%;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-evenly;
+        }
+        .btns button{
+            width:55px;
+            height: 55px;
+            border-radius: 50%;
+            border-style: none;
+            color: rgb(109, 113, 113);
+            background-color: #eef1f2;
+            font-size: 1.5rem;
+        }
+    </style>
+      <script src="https://kit.fontawesome.com/68cb6a0ce5.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="slideshow-container" id="slideshow">
+        <img src="image/tower.avif" alt="" class="shown">
+        <img src="image/balcony.avif" alt="">
+        <img src="image/bird.avif" alt="">
+        <img src="image/birdss.avif" alt="">
+        <img src="image/butterfly.avif" alt="">
+        <img src="image/desk.avif" alt="">
+        <img src="image/girl.avif" alt="">
+        <img src="image/hill.avif" alt="">
+        <img src="image/library.avif" alt="">
+        <img src="image/photo-1741988766604-04b6f1b3236d.avif" alt="">
+        <img src="image/plant.avif" alt="">
+        <img src="image/premium_photo-1681412204756-3ea8eda723f2 (1).avif" alt="">
+        <img src="image/ride.avif" alt="">
+        <img src="image/road.avif" alt="">
+        <img src="image/scuba.avif" alt="">
+        <img src="image/space.avif" alt="">
+        <img src="image/photo-1740248097266-6da885266331.avif" alt="">
+        <img src="image/tree.avif" alt="">
+        <img src="image/view.avif" alt="">
+        <img src="image/work.avif" alt="">
+    </div>
+    <div class="btns">
+        <button class="prev"><i class="fa-solid fa-backward"></i></button>
+        <button class="start"><i class="fa-solid fa-circle-play"></i></button>
+        <button class="stop"><i class="fa-solid fa-circle-pause"></i></button>
+        <button class="next"><i class="fa-solid fa-forward"></i></button>
+       
+    </div>
+</body>
+</html>
+<script>
+    const slides = document.querySelectorAll("#slideshow img");
+    const nextBtn = document.querySelector(".next");
+    const prevBtn = document.querySelector(".prev");
+    const startBtn = document.querySelector(".start");
+    const stopBtn = document.querySelector(".stop");
+
+    let curidx = 0;
+    let intervalId = setInterval(nextSlide, 2000);
+    let isPlaying = true;
+
+    function showSlide(idx){
+        slides.forEach((slide,i)=>{
+            slide.classList.toggle("shown",i===idx)
+        })
+    }
+    function nextSlide(){
+        curidx=(curidx+1)%slides.length;
+        showSlide(curidx)
+    }
+    function prevSlide(){
+        curidx=(curidx-1+slides.length)%slides.length;
+        showSlide(curidx)
+    }
+    function stopSlider(){
+        clearInterval(intervalId)
+        isPlaying=false;
+    }
+    function startSlider(){
+    if (!isPlaying) {
+    intervalId = setInterval(nextSlide, 2000);
+    isPlaying = true;
+        }
+    }
+    nextBtn.addEventListener('click',()=>{
+        stopSlider()
+        nextSlide()
+    })
+    prevBtn.addEventListener('click',()=>{
+        stopSlider()
+        prevSlide()
+    })
+    startBtn.addEventListener('click',startSlider)
+    stopBtn.addEventListener('click',stopSlider)
+</script>
